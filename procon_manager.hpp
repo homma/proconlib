@@ -1,7 +1,6 @@
 #include <SDL3/SDL.h>
 #include <optional>
 #include <print>
-#include <vector>
 
 struct ProconManager {
   std::optional<SDL_Gamepad *> gamepad;
