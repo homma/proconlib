@@ -2,7 +2,7 @@
 
 import subprocess
 
-# Executable
+# Config
 target_name = "procon_check"
 src = "example01.cpp"
 
@@ -19,6 +19,7 @@ sdl3["path"] = (
 sdl3["lib_path"] = sdl3["path"] + "/lib"
 sdl3["include_path"] = sdl3["path"] + "/include"
 
+# Executable
 Program(
     target_name,
     src,
