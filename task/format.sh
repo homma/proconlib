@@ -2,6 +2,6 @@
 
 ROOT_DIR=$(dirname $0)/..
 
-cd ${ROOT_DIR}/src
+cd ${ROOT_DIR}/
 
 clang-format -i *.cpp

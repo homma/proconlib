@@ -8,6 +8,7 @@ struct ProconManager {
   float accel[3];
   float gyro[3];
   uint64_t last_updated;
+  uint64_t delta_time;
 
   auto scan() -> bool;
   auto connected() -> bool;
@@ -108,7 +109,9 @@ auto ProconManager::update() -> bool {
   auto updated = ac_updated && gy_updated;
 
   if (updated) {
-    this->last_updated = SDL_GetTicks();
+    auto now = SDL_GetTicks();
+    this->delta_time = now - this->last_updated;
+    this->last_updated = now;
   }
 
   return updated;
@@ -125,7 +128,7 @@ auto ProconManager::print_data() -> void {
     return;
   }
 
-  std::println("Time:  {}", this->last_updated);
+  std::println("Time Delta:  {}", this->delta_time / 1000.0);
   std::println("Accel: {}, {}, {}", this->accel[0], this->accel[1],
                this->accel[2]);
   std::println("Gyro:  {}, {}, {}", this->gyro[0], this->gyro[1],
