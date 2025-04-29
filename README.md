@@ -21,14 +21,14 @@ Clone this repository.
 $ git clone https://github.com/homma/proconlib.git
 ````
 
-Build the example.
+Build the example program.
 
 ````console
 $ cd proconlib
 $ ./task/build.sh
 ````
 
-And run.
+Run the example program.
 
 ````console
 $ ./example/procon_check
