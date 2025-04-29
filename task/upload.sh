@@ -10,4 +10,4 @@ git pull
 git checkout main
 git add .
 git commit -a -m "${MESSAGE}"
-git push origin main
+git push -u origin main

@@ -19,12 +19,16 @@ sdl3["path"] = (
 sdl3["lib_path"] = sdl3["path"] + "/lib"
 sdl3["include_path"] = sdl3["path"] + "/include"
 
+## proconlib
+proconlib = {}
+proconlib["include_path"] = ".."
+
 # Executable
 Program(
     target_name,
     src,
     LIBS=[sdl3["lib"]],
     LIBPATH=[sdl3["lib_path"]],
-    CPPPATH=[sdl3["include_path"]],
+    CPPPATH=[sdl3["include_path"], proconlib["include_path"]],
     CCFLAGS=["-std=c++2c"],
 )

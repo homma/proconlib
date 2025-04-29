@@ -1,6 +1,7 @@
-#include "procon_manager.hpp"
 #include <SDL3/SDL.h>
+#include <csignal>
 #include <memory>
+#include <procon_manager.hpp>
 
 auto init_sdl() -> void {
   if (!SDL_Init(SDL_INIT_GAMEPAD)) {
@@ -14,7 +15,7 @@ auto check_procon() -> void {
     return;
   }
 
-  auto count = 10;
+  auto count = 30;
   for (auto i = 0; i < count; i++) {
     std::println("loop {}", i);
     if (!gp->connected()) {
@@ -33,6 +34,10 @@ auto check_procon() -> void {
 }
 
 auto main() -> int {
+  std::signal(SIGINT, exit);
+  std::println("press <Ctrl-C> to stop.");
+  std::println();
+
   init_sdl();
 
   check_procon();
