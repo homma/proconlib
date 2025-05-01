@@ -39,16 +39,16 @@ private:
   auto enable_sensors() -> void;
 };
 
-ProconManager::~ProconManager() { this->close(); }
+inline ProconManager::~ProconManager() { this->close(); }
 
-auto ProconManager::close() -> void {
+inline auto ProconManager::close() -> void {
   // close only when we have a gamepad otherwise we will do nothing
   if (this->gamepad.has_value()) {
     SDL_CloseGamepad(this->gamepad.value());
   }
 }
 
-auto ProconManager::scan() -> bool {
+inline auto ProconManager::scan() -> bool {
   auto has_procon = false;
 
   if (!SDL_HasGamepad()) {
@@ -81,7 +81,7 @@ auto ProconManager::scan() -> bool {
   return has_procon;
 }
 
-auto ProconManager::enable_sensors() -> void {
+inline auto ProconManager::enable_sensors() -> void {
   if (!this->gamepad.has_value()) {
     std::println("Gamepad not configured.");
     return;
@@ -98,7 +98,7 @@ auto ProconManager::enable_sensors() -> void {
   }
 }
 
-auto ProconManager::connected() -> bool {
+inline auto ProconManager::connected() -> bool {
   if (this->gamepad.has_value()) {
     return SDL_GamepadConnected(this->gamepad.value());
   }
@@ -106,7 +106,7 @@ auto ProconManager::connected() -> bool {
   return false;
 }
 
-auto ProconManager::update() -> bool {
+inline auto ProconManager::update() -> bool {
   if (!this->gamepad.has_value()) {
     std::println("Gamepad not configured.");
     return false;
@@ -130,7 +130,7 @@ auto ProconManager::update() -> bool {
   return updated;
 }
 
-auto ProconManager::is_button_pressed(SDL_GamepadButton button) -> bool {
+inline auto ProconManager::is_button_pressed(SDL_GamepadButton button) -> bool {
   if (!this->gamepad.has_value()) {
     std::println("Gamepad not configured.");
     return false;
@@ -139,7 +139,7 @@ auto ProconManager::is_button_pressed(SDL_GamepadButton button) -> bool {
   return SDL_GetGamepadButton(this->gamepad.value(), button);
 }
 
-auto ProconManager::is_zbutton_pressed(SDL_GamepadAxis axis) -> bool {
+inline auto ProconManager::is_zbutton_pressed(SDL_GamepadAxis axis) -> bool {
   if (!this->gamepad.has_value()) {
     std::println("Gamepad not configured.");
     return false;
@@ -149,7 +149,7 @@ auto ProconManager::is_zbutton_pressed(SDL_GamepadAxis axis) -> bool {
   return SDL_GetGamepadAxis(this->gamepad.value(), axis) == pressed;
 }
 
-auto ProconManager::get_axis(SDL_GamepadAxis axis) -> int16_t {
+inline auto ProconManager::get_axis(SDL_GamepadAxis axis) -> int16_t {
   if (!this->gamepad.has_value()) {
     std::println("Gamepad not configured.");
     return 0;
@@ -158,13 +158,13 @@ auto ProconManager::get_axis(SDL_GamepadAxis axis) -> int16_t {
   return SDL_GetGamepadAxis(this->gamepad.value(), axis);
 }
 
-auto ProconManager::print_info() -> void {
+inline auto ProconManager::print_info() -> void {
   if (this->gamepad.has_value()) {
     this->print_gamepad(this->gamepad.value());
   }
 }
 
-auto ProconManager::print_data() -> void {
+inline auto ProconManager::print_data() -> void {
   if (!this->gamepad.has_value()) {
     return;
   }
@@ -174,7 +174,7 @@ auto ProconManager::print_data() -> void {
   this->print_axis();
 }
 
-auto ProconManager::print_sensor() -> void {
+inline auto ProconManager::print_sensor() -> void {
   std::println("Time Delta:  {}", this->delta_time / 1000.0);
   std::println("Accel: {}, {}, {}", this->accel[0], this->accel[1],
                this->accel[2]);
@@ -182,7 +182,7 @@ auto ProconManager::print_sensor() -> void {
                this->gyro[2]);
 }
 
-auto ProconManager::print_button() -> void {
+inline auto ProconManager::print_button() -> void {
 
   auto button = std::vector<std::pair<SDL_GamepadButton, std::string>>{
       {SDL_GAMEPAD_BUTTON_DPAD_UP, "UP"},
@@ -219,7 +219,7 @@ auto ProconManager::print_button() -> void {
   }
 }
 
-auto ProconManager::print_axis() -> void {
+inline auto ProconManager::print_axis() -> void {
 
   auto axis = std::vector<std::pair<SDL_GamepadAxis, std::string>>{
       {SDL_GAMEPAD_AXIS_LEFTX, "LEFT_STICK_X"},
@@ -234,7 +234,7 @@ auto ProconManager::print_axis() -> void {
   }
 }
 
-auto ProconManager::is_procon(SDL_JoystickID instance_id) -> bool {
+inline auto ProconManager::is_procon(SDL_JoystickID instance_id) -> bool {
   auto type = SDL_GetGamepadTypeForID(instance_id);
 
   return type == SDL_GAMEPAD_TYPE_NINTENDO_SWITCH_PRO;
@@ -245,7 +245,7 @@ auto ProconManager::print_gamepad(SDL_Gamepad *gamepad) -> void {
   print_gamepad(instance_id);
 }
 
-auto ProconManager::print_gamepad(SDL_JoystickID instance_id) -> void {
+inline auto ProconManager::print_gamepad(SDL_JoystickID instance_id) -> void {
   auto mapping = SDL_GetGamepadMappingForID(instance_id);
   auto name = SDL_GetGamepadNameForID(instance_id);
   auto path = SDL_GetGamepadPathForID(instance_id);
