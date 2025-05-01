@@ -6,9 +6,11 @@ import os
 target_name = "procon_check"
 src = "example01.cpp"
 
+# Build Environment
 env = Environment(ENV=os.environ.copy())
 env.Append(CCFLAGS=["-std=c++2c"])
 
+# Library
 ## SDL3
 env.ParseConfig("pkg-config sdl3 --libs-only-L --libs-only-l --cflags")
 
